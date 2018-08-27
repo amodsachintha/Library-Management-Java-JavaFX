@@ -17,5 +17,5 @@ This is a library management software developed using Java that uses JavaFX for 
 
 ### Screenshots
 <p align="center">
- <img height="400" src="https://raw.githubusercontent.com/amodsachintha/Library-Management-JavaFX/master/meta/login.png">
+ <img height="400" src="https://raw.githubusercontent.com/amodsachintha/Library-Management-Java-JavaFX/master/meta/login.png">
 </p>
