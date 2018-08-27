@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="188.0" prefWidth="525.0" style="-fx-background-color: #425ab2;" styleClass="custom-pane" stylesheets="@../../../../resources/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="library.assistant.ui.about.AboutController">
+   <children>
+      <ImageView fitHeight="92.0" fitWidth="199.0" layoutX="14.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../resources/gc.png" />
+         </image>
+      </ImageView>
+      <VBox layoutX="231.0" layoutY="18.0" spacing="5.0">
+         <children>
+            <JFXButton buttonType="RAISED" onAction="#loadBlog" prefHeight="40.0" prefWidth="269.0" styleClass="about-button" text="Blog" />
+            <JFXButton buttonType="RAISED" onAction="#loadLinkedIN" prefHeight="40.0" prefWidth="269.0" styleClass="about-button" text="Linked In" />
+            <JFXButton buttonType="RAISED" onAction="#loadFacebook" prefHeight="40.0" prefWidth="269.0" styleClass="about-button" text="Personal Facebook Page" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -1,0 +1,10 @@
+/build/
+/dist/
+/database/
+derby.log
+logs/
+.idea/
+database/
+logs/
+LICENSE
+out/
