@@ -8,14 +8,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -67,12 +64,16 @@ public class MemberListController implements Initializable {
     @FXML
     private TableColumn<Member, String> addressCol;
     @FXML
+    private JFXComboBox<String> searchType;
+    @FXML
     private StackPane rootPane;
     @FXML
     private AnchorPane contentPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        searchType.setItems(FXCollections.observableArrayList("Name","Member ID", "National ID"));
+        searchType.getSelectionModel().selectFirst();
         initCol();
         loadData();
     }
@@ -97,23 +98,7 @@ public class MemberListController implements Initializable {
         DatabaseHandler handler = DatabaseHandler.getInstance();
         String qu = "SELECT * FROM MEMBER";
         ResultSet rs = handler.execQuery(qu);
-        try {
-            while (rs.next()) {
-                String name = rs.getString("name");
-                String mobile = rs.getString("mobile");
-                String id = rs.getString("id");
-                String email = rs.getString("email");
-                String mobile2 = rs.getString("mobile2");
-                String nic = rs.getString("nic");
-                String address = rs.getString("address");
-
-                list.add(new Member(name, id, mobile, email,mobile2,nic,address));
-
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(BookAddController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        appendToList(rs);
         tableView.setItems(list);
     }
 
@@ -258,6 +243,16 @@ public class MemberListController implements Initializable {
     @FXML
     private void loadFromSearch() {
         String searchParam = search.getText();
+        String type = searchType.getSelectionModel().getSelectedItem().toLowerCase();
+        if(type.equals("name"))
+            type = "NAME";
+        else if(type.equals("member id"))
+            type = "ID";
+        else if (type.equals("national id"))
+            type = "NIC";
+        else
+            type = "NAME";
+
         if (searchParam.isEmpty()) {
             list.clear();
             loadData();
@@ -265,26 +260,30 @@ public class MemberListController implements Initializable {
         else {
             list.clear();
             DatabaseHandler handler = DatabaseHandler.getInstance();
-            String qu = "SELECT * FROM MEMBER WHERE LOWER( name ) LIKE '%" + searchParam.toLowerCase() + "%'";
+            String qu = "SELECT * FROM MEMBER WHERE LOWER( "+ type +" ) LIKE '%" + searchParam.toLowerCase() + "%'";
             System.out.println(qu);
             ResultSet rs = handler.execQuery(qu);
-            try {
-                while (rs.next()) {
-                    String name = rs.getString("name");
-                    String mobile = rs.getString("mobile");
-                    String id = rs.getString("id");
-                    String email = rs.getString("email");
-                    String mobile2 = rs.getString("mobile2");
-                    String nic = rs.getString("nic");
-                    String address = rs.getString("address");
-                    list.add(new Member(name, id, mobile, email,mobile2,nic,address));
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(BookAddController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            appendToList(rs);
             tableView.setItems(list);
         }
 
+    }
+
+    private void appendToList(ResultSet rs) {
+        try {
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String mobile = rs.getString("mobile");
+                String id = rs.getString("id");
+                String email = rs.getString("email");
+                String mobile2 = rs.getString("mobile2");
+                String nic = rs.getString("nic");
+                String address = rs.getString("address");
+                list.add(new Member(name, id, mobile, email,mobile2,nic,address));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BookAddController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
