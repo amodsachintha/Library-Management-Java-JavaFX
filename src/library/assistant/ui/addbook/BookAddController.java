@@ -60,13 +60,13 @@ public class BookAddController implements Initializable {
             return;
         }
 
-        if (DataHelper.isBookExists(bookID)) {
-            AlertMaker.showMaterialDialog(rootPane, mainContainer, new ArrayList<>(), "Duplicate book id", "Book with same Book ID exists.\nPlease use new ID");
+        if (isInEditMode) {
+            handleEditOperation();
             return;
         }
 
-        if (isInEditMode) {
-            handleEditOperation();
+        if (DataHelper.isBookExists(bookID)) {
+            AlertMaker.showMaterialDialog(rootPane, mainContainer, new ArrayList<>(), "Duplicate book id", "Book with same Book ID exists.\nPlease use new ID");
             return;
         }
 

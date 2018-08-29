@@ -61,6 +61,12 @@ public class MemberListController implements Initializable {
     @FXML
     private TableColumn<Member, String> emailCol;
     @FXML
+    private TableColumn<Member, String> mobileCol2;
+    @FXML
+    private TableColumn<Member, String> nicCol;
+    @FXML
+    private TableColumn<Member, String> addressCol;
+    @FXML
     private StackPane rootPane;
     @FXML
     private AnchorPane contentPane;
@@ -76,6 +82,9 @@ public class MemberListController implements Initializable {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         mobileCol.setCellValueFactory(new PropertyValueFactory<>("mobile"));
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        mobileCol2.setCellValueFactory(new PropertyValueFactory<>("mobile2"));
+        nicCol.setCellValueFactory(new PropertyValueFactory<>("nic"));
+        addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
     }
 
     private Stage getStage() {
@@ -94,8 +103,11 @@ public class MemberListController implements Initializable {
                 String mobile = rs.getString("mobile");
                 String id = rs.getString("id");
                 String email = rs.getString("email");
+                String mobile2 = rs.getString("mobile2");
+                String nic = rs.getString("nic");
+                String address = rs.getString("address");
 
-                list.add(new Member(name, id, mobile, email));
+                list.add(new Member(name, id, mobile, email,mobile2,nic,address));
 
             }
         } catch (SQLException ex) {
@@ -172,7 +184,7 @@ public class MemberListController implements Initializable {
     @FXML
     private void exportAsPDF(ActionEvent event) {
         List<List> printData = new ArrayList<>();
-        String[] headers = {"   Name    ", "ID", "Mobile", "    Email   "};
+        String[] headers = {"   Name    ", "ID", "Mobile", "    Email   ","Mobile2","NIC","    Address    "};
         printData.add(Arrays.asList(headers));
         for (Member member : list) {
             List<String> row = new ArrayList<>();
@@ -180,6 +192,9 @@ public class MemberListController implements Initializable {
             row.add(member.getId());
             row.add(member.getMobile());
             row.add(member.getEmail());
+            row.add(member.getMobile2());
+            row.add(member.getNic());
+            row.add(member.getAddress());
             printData.add(row);
         }
         LibraryAssistantUtil.initPDFExprot(rootPane, contentPane, getStage(), printData);
@@ -196,12 +211,18 @@ public class MemberListController implements Initializable {
         private final SimpleStringProperty id;
         private final SimpleStringProperty mobile;
         private final SimpleStringProperty email;
+        private final SimpleStringProperty mobile2;
+        private final SimpleStringProperty nic;
+        private final SimpleStringProperty address;
 
-        public Member(String name, String id, String mobile, String email) {
+        public Member(String name, String id, String mobile, String email,String mobile2, String nic, String address) {
             this.name = new SimpleStringProperty(name);
             this.id = new SimpleStringProperty(id);
             this.mobile = new SimpleStringProperty(mobile);
             this.email = new SimpleStringProperty(email);
+            this.mobile2 = new SimpleStringProperty(mobile2);
+            this.nic = new SimpleStringProperty(nic);
+            this.address = new SimpleStringProperty(address);
         }
 
         public String getName() {
@@ -218,6 +239,18 @@ public class MemberListController implements Initializable {
 
         public String getEmail() {
             return email.get();
+        }
+
+        public String getMobile2() {
+            return mobile2.get();
+        }
+
+        public String getNic() {
+            return nic.get();
+        }
+
+        public String getAddress() {
+            return address.get();
         }
 
     }
@@ -241,7 +274,10 @@ public class MemberListController implements Initializable {
                     String mobile = rs.getString("mobile");
                     String id = rs.getString("id");
                     String email = rs.getString("email");
-                    list.add(new Member(name, id, mobile, email));
+                    String mobile2 = rs.getString("mobile2");
+                    String nic = rs.getString("nic");
+                    String address = rs.getString("address");
+                    list.add(new Member(name, id, mobile, email,mobile2,nic,address));
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(BookAddController.class.getName()).log(Level.SEVERE, null, ex);

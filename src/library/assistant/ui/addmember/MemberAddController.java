@@ -30,6 +30,12 @@ public class MemberAddController implements Initializable {
     @FXML
     private JFXTextField email;
     @FXML
+    private JFXTextField mobile2;
+    @FXML
+    private JFXTextField nic;
+    @FXML
+    private JFXTextField address;
+    @FXML
     private JFXButton saveButton;
     @FXML
     private JFXButton cancelButton;
@@ -57,15 +63,22 @@ public class MemberAddController implements Initializable {
         String mID = id.getText();
         String mMobile = mobile.getText();
         String mEmail = email.getText();
+        String mMobile2 = mobile2.getText();
+        String mNic = nic.getText();
+        String mAddress = address.getText();
 
-        Boolean flag = mName.isEmpty() || mID.isEmpty() || mMobile.isEmpty() || mEmail.isEmpty();
+        if(mEmail.isEmpty())
+            mEmail = "NULL";
+
+        if(mMobile2.isEmpty())
+            mMobile2 = "NULL";
+
+        if(mNic.isEmpty())
+            mNic = "NULL";
+
+        Boolean flag = mName.isEmpty() || mID.isEmpty() || mMobile.isEmpty() || mAddress.isEmpty();
         if (flag) {
             AlertMaker.showMaterialDialog(rootPane, mainContainer, new ArrayList<>(), "Insufficient Data", "Please enter data in all fields.");
-            return;
-        }
-
-        if (DataHelper.isMemberExists(mID)) {
-            AlertMaker.showMaterialDialog(rootPane, mainContainer, new ArrayList<>(), "Duplicate member id", "Member with same id exists.\nPlease use new ID");
             return;
         }
 
@@ -74,7 +87,13 @@ public class MemberAddController implements Initializable {
             return;
         }
 
-        Member member = new Member(mName, mID, mMobile, mEmail);
+        if (DataHelper.isMemberExists(mID)) {
+            AlertMaker.showMaterialDialog(rootPane, mainContainer, new ArrayList<>(), "Duplicate member id", "Member with same id exists.\nPlease use new ID");
+            return;
+        }
+
+
+        Member member = new Member(mName, mID, mMobile, mEmail, mMobile2, mNic,mAddress);
         boolean result = DataHelper.insertNewMember(member);
         if (result) {
             AlertMaker.showMaterialDialog(rootPane, mainContainer, new ArrayList<>(), "New member added", mName + " has been added");
@@ -90,6 +109,9 @@ public class MemberAddController implements Initializable {
         id.setEditable(false);
         mobile.setText(member.getMobile());
         email.setText(member.getEmail());
+        mobile2.setText(member.getMobile2());
+        nic.setText(member.getNic());
+        address.setText(member.getAddress());
 
         isInEditMode = Boolean.TRUE;
     }
@@ -99,10 +121,13 @@ public class MemberAddController implements Initializable {
         id.clear();
         mobile.clear();
         email.clear();
+        mobile2.clear();
+        nic.clear();
+        address.clear();
     }
 
     private void handleUpdateMember() {
-        Member member = new MemberListController.Member(name.getText(), id.getText(), mobile.getText(), email.getText());
+        Member member = new MemberListController.Member(name.getText(), id.getText(), mobile.getText(), email.getText(), mobile2.getText(),nic.getText(),address.getText());
         if (DatabaseHandler.getInstance().updateMember(member)) {
             AlertMaker.showMaterialDialog(rootPane, mainContainer, new ArrayList<>(), "Success", "Member data updated.");
         } else {
