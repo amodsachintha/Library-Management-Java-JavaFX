@@ -1,17 +1,12 @@
 package library.assistant.ui.settings;
 
 import com.google.gson.Gson;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import library.assistant.alert.AlertMaker;
 import org.apache.commons.codec.digest.DigestUtils;
+
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Preferences {
 

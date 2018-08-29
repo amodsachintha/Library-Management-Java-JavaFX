@@ -3,11 +3,6 @@ package library.assistant.ui.settings;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-
-import java.net.URL;
-import java.security.InvalidParameterException;
-import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +17,10 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.net.URL;
+import java.security.InvalidParameterException;
+import java.util.ResourceBundle;
 
 public class SettingsController implements Initializable {
 

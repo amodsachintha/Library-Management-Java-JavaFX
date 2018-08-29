@@ -1,17 +1,7 @@
 package library.assistant.ui.notifoverdue.emailsender;
 
 import com.jfoenix.controls.JFXProgressBar;
-import java.net.URL;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
@@ -24,6 +14,12 @@ import library.assistant.email.EmailUtil;
 import library.assistant.ui.notifoverdue.NotificationItem;
 import library.assistant.ui.settings.Preferences;
 import library.assistant.util.LibraryAssistantUtil;
+
+import java.net.URL;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * FXML Controller class

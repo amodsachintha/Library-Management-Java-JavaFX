@@ -3,15 +3,6 @@ package library.assistant.ui.notifoverdue;
 import com.google.common.collect.ImmutableList;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
-import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -34,6 +25,16 @@ import library.assistant.database.DatabaseHandler;
 import library.assistant.ui.notifoverdue.emailsender.EmailSenderController;
 import library.assistant.ui.settings.Preferences;
 import library.assistant.util.LibraryAssistantUtil;
+
+import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * FXML Controller class

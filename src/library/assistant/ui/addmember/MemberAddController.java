@@ -2,9 +2,6 @@ package library.assistant.ui.addmember;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +13,10 @@ import library.assistant.database.DataHelper;
 import library.assistant.database.DatabaseHandler;
 import library.assistant.ui.listmember.MemberListController;
 import library.assistant.ui.listmember.MemberListController.Member;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 public class MemberAddController implements Initializable {
 
