@@ -3,9 +3,11 @@ package library.assistant.ui.settings;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+
 import java.net.URL;
 import java.security.InvalidParameterException;
 import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +18,7 @@ import library.assistant.database.DataHelper;
 import library.assistant.database.DatabaseHandler;
 import library.assistant.ui.mail.TestMailController;
 import library.assistant.util.LibraryAssistantUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,6 +33,8 @@ public class SettingsController implements Initializable {
     private JFXTextField username;
     @FXML
     private JFXPasswordField password;
+    @FXML
+    private JFXPasswordField newPassword;
     @FXML
     private JFXTextField serverName;
     @FXML
@@ -54,14 +59,28 @@ public class SettingsController implements Initializable {
         float fine = Float.parseFloat(finePerDay.getText());
         String uname = username.getText();
         String pass = password.getText();
-
+        String newPass = newPassword.getText();
         Preferences preferences = Preferences.getPreferences();
+
+        if(!pass.isEmpty() && newPass.isEmpty()){
+            AlertMaker.showErrorMessage("Error","Enter New Password!");
+            return;
+        }
+
+        if (!newPass.isEmpty()) {
+            if (!DigestUtils.sha1Hex(pass).equals(preferences.getPassword())) {
+                AlertMaker.showErrorMessage("Error", "Current Password wrong!");
+                return;
+            }
+            preferences.setPassword(newPass);
+        }
+
         preferences.setnDaysWithoutFine(ndays);
         preferences.setFinePerDay(fine);
         preferences.setUsername(uname);
-        preferences.setPassword(pass);
 
         Preferences.writePreferenceToFile(preferences);
+        username.getParent().getScene().getWindow().hide();
     }
 
     private Stage getStage() {
@@ -74,7 +93,8 @@ public class SettingsController implements Initializable {
         finePerDay.setText(String.valueOf(preferences.getFinePerDay()));
         username.setText(String.valueOf(preferences.getUsername()));
         String passHash = String.valueOf(preferences.getPassword());
-        password.setText(passHash.substring(0, Math.min(passHash.length(), 10)));
+//        password.setText(passHash.substring(0, Math.min(passHash.length(), 10)));
+        password.setText("");
         loadMailServerConfigurations();
     }
 
@@ -116,8 +136,7 @@ public class SettingsController implements Initializable {
 
     private void loadMailServerConfigurations() {
         MailServerInfo mailServerInfo = DataHelper.loadMailServerInfo();
-        if(mailServerInfo!=null)
-        {
+        if (mailServerInfo != null) {
             LOGGER.log(Level.INFO, "Mail server info loaded from DB");
             serverName.setText(mailServerInfo.getMailServer());
             smtpPort.setText(String.valueOf(mailServerInfo.getPort()));
