@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import library.assistant.database.DataHelper;
 import library.assistant.database.DatabaseHandler;
 import library.assistant.util.LibraryAssistantUtil;
 import org.joda.time.DateTime;
@@ -45,10 +46,10 @@ public class RenewListController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setCols();
+        setCols("");
     }
 
-    public void setCols() {
+    public void setCols(String id) {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         mobileCol.setCellValueFactory(new PropertyValueFactory<>("mobile"));
@@ -62,7 +63,7 @@ public class RenewListController implements Initializable {
                     public TableCell call(final TableColumn<Member, String> param) {
                         final TableCell<Member, String> cell = new TableCell<Member, String>() {
 
-                            final Button btn = new Button("Just Do It");
+                            final Button btn = new Button("RENEW");
 
                             @Override
                             public void updateItem(String item, boolean empty) {
@@ -73,8 +74,7 @@ public class RenewListController implements Initializable {
                                 } else {
                                     btn.setOnAction(event -> {
                                         Member Member = getTableView().getItems().get(getIndex());
-                                        System.out.println(Member.getName()
-                                                + "   " + Member.getId());
+                                        System.out.println("Member Renewed: ID " + Member.getId() + "result: " + DataHelper.renewMember(Member.getId()));
                                     });
                                     setGraphic(btn);
                                     setText(null);
@@ -86,13 +86,19 @@ public class RenewListController implements Initializable {
                 };
 
         buttonCol.setCellFactory(cellFactory);
-        loadData();
+        loadData(id);
         tableView.setItems(list);
     }
 
     @FXML
     public void exit() {
+        tableView.getParent().getScene().getWindow().hide();
+    }
 
+    @FXML
+    public void search(){
+        String searchParam = search.getText().toLowerCase();
+        setCols(searchParam);
     }
 
     public static class Member {
@@ -127,10 +133,12 @@ public class RenewListController implements Initializable {
     }
 
 
-    private void loadData() {
+    private void loadData(String str) {
         list.clear();
         DatabaseHandler handler = DatabaseHandler.getInstance();
         String query = "SELECT ID, NAME, MOBILE, RENEWED_AT FROM MEMBER";
+        if (!str.equals(""))
+            query = "SELECT ID, NAME, MOBILE, RENEWED_AT FROM MEMBER WHERE ID LIKE '%" + str + "%'";
         ResultSet rs = handler.execQuery(query);
         try {
             while (rs.next()) {
