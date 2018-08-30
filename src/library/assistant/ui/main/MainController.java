@@ -563,4 +563,9 @@ public class MainController implements Initializable, BookReturnCallback {
         LibraryAssistantUtil.loadWindow(getClass().getResource("/library/assistant/ui/notifoverdue/overdue_notification.fxml"), "Notify Users", null);
     }
 
+    @FXML
+    private void showRenewDialog(){
+        LibraryAssistantUtil.loadWindow(getClass().getResource("/library/assistant/ui/renew/renew_list.fxml"),"Renew Status",null);
+    }
+
 }
