@@ -8,8 +8,7 @@ This is a library management software developed using Java that uses JavaFX for 
   * [GSon](https://github.com/google/gson) - JSON Library. Used for storing configuration
   * [FontawesomeFX](https://bitbucket.org/Jerady/fontawesomefx) - Icon library
   * [Apache PDFBox](https://pdfbox.apache.org/) - PDF Export
-  * [JavaMail API](http://www.oracle.com/technetwork/java/javamail/index.html) - Email Notification
-  
+
 ### Default Login Credentials
 | Username  | Password |
 | ------------- | ------------- |
