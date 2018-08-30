@@ -1,16 +1,20 @@
 package library.assistant.ui.issuedlist;
 
+import com.jfoenix.controls.JFXCheckBox;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -51,6 +55,8 @@ public class IssuedListController implements Initializable {
     @FXML
     private TableColumn<IssueInfo, Float> fineCol;
     @FXML
+    private JFXCheckBox overdueCheck;
+    @FXML
     private StackPane rootPane;
     @FXML
     private AnchorPane contentPane;
@@ -58,7 +64,8 @@ public class IssuedListController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initCol();
-        loadData();
+        loadData(false);
+        setOverdueCheckEvent();
     }
 
     private void initCol() {
@@ -76,7 +83,7 @@ public class IssuedListController implements Initializable {
         this.callback = callback;
     }
 
-    private void loadData() {
+    private void loadData(boolean isOverdueCheckSelected) {
         list.clear();
         DatabaseHandler handler = DatabaseHandler.getInstance();
         String qu = "SELECT ISSUE.bookID, ISSUE.memberID, ISSUE.issueTime, MEMBER.name, BOOK.title FROM ISSUE\n"
@@ -98,7 +105,12 @@ public class IssuedListController implements Initializable {
                 Integer days = Math.toIntExact(TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - issueTime.getTime())) + 1;
                 Float fine = LibraryAssistantUtil.getFineAmount(days);
                 IssueInfo issueInfo = new IssueInfo(counter, bookID, bookTitle, memberName, LibraryAssistantUtil.formatDateTimeString(new Date(issueTime.getTime())), days, fine);
-                list.add(issueInfo);
+                if (isOverdueCheckSelected) {
+                    if (fine > 0) {
+                        list.add(issueInfo);
+                    }
+                } else list.add(issueInfo);
+
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -107,7 +119,7 @@ public class IssuedListController implements Initializable {
 
     @FXML
     private void handleRefresh(ActionEvent event) {
-        loadData();
+        loadData(false);
     }
 
     @FXML
@@ -195,4 +207,19 @@ public class IssuedListController implements Initializable {
             return fine.get();
         }
     }
+
+    private void setOverdueCheckEvent() {
+        EventHandler handler = new EventHandler() {
+            @Override
+            public void handle(Event event) {
+                if (overdueCheck.isSelected()) {
+                    System.out.println("Showing Overdue Books");
+                    loadData(true);
+                } else
+                    loadData(false);
+            }
+        };
+        overdueCheck.addEventHandler(MouseEvent.MOUSE_CLICKED, handler);
+    }
+
 }

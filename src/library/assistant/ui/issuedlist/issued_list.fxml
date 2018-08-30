@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<StackPane fx:id="rootPane" stylesheets="@../../../../resources/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="library.assistant.ui.issuedlist.IssuedListController">
+<?import javafx.scene.text.Font?>
+<StackPane fx:id="rootPane" prefHeight="546.0" prefWidth="944.0" stylesheets="@../../../../resources/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="library.assistant.ui.issuedlist.IssuedListController">
    <children>
       <AnchorPane id="AnchorPane" fx:id="contentPane" prefHeight="546.0" prefWidth="789.0" stylesheets="@../../../../resources/dark-theme.css">
          <children>
-            <TableView fx:id="tableView" layoutX="10.0" layoutY="10.0" prefHeight="410.0" prefWidth="732.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+            <TableView fx:id="tableView" layoutX="10.0" layoutY="10.0" prefHeight="410.0" prefWidth="732.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
                <columns>
                   <TableColumn fx:id="idCol" maxWidth="100.0" minWidth="60.0" prefWidth="60.0" text="SI No" />
                   <TableColumn fx:id="bookIDCol" maxWidth="3000.0" prefWidth="60.0" text="Book ID" />
@@ -38,6 +40,11 @@
                   </Menu>
                </menus>
             </MenuBar>
+            <JFXCheckBox fx:id="overdueCheck" checkedColor="#e74c3c" prefHeight="32.0" prefWidth="140.0" text="Show Overdue" AnchorPane.rightAnchor="10.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXCheckBox>
          </children>
       </AnchorPane>
    </children>
