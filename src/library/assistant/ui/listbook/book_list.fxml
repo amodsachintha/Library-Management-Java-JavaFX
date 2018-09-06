@@ -12,7 +12,7 @@
                 <TableColumn fx:id="titleCol" prefWidth="75.0" text="Title" />
                 <TableColumn fx:id="idCol" maxWidth="2500.0" prefWidth="75.0" text="Book ID" />
                   <TableColumn fx:id="authorCol" prefWidth="75.0" text="Author" />
-                  <TableColumn fx:id="publisherCol" prefWidth="75.0" text="Publisher" />
+                  <TableColumn fx:id="priceCol" prefWidth="75.0" text="Price" />
                   <TableColumn fx:id="availabilityCol" maxWidth="2800.0" prefWidth="75.0" text="Availability" />
               </columns>
                <columnResizePolicy>

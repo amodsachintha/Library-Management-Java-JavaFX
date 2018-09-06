@@ -8,14 +8,14 @@ public class Book {
     String id;
     String title;
     String author;
-    String publisher;
+    String price;
     Boolean isAvail;
 
-    public Book(String id, String title, String author, String publisher, Boolean isAvail) {
+    public Book(String id, String title, String author, String price, Boolean isAvail) {
         this.id = id;
         this.title = title;
         this.author = author;
-        this.publisher = publisher;
+        this.price = price;
         this.isAvail = isAvail;
     }
 
@@ -43,12 +43,12 @@ public class Book {
         this.author = author;
     }
 
-    public String getPublisher() {
-        return publisher;
+    public String getPrice() {
+        return price;
     }
 
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public Boolean getAvailability() {

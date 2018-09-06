@@ -90,7 +90,7 @@ public class MainController implements Initializable, BookReturnCallback {
     @FXML
     private Text bookAuthorHolder;
     @FXML
-    private Text bookPublisherHolder;
+    private Text bookPriceHolder;
     @FXML
     private Text issueDateHolder;
     @FXML
@@ -271,7 +271,7 @@ public class MainController implements Initializable, BookReturnCallback {
             String id = bookID.getText();
             String myQuery = "SELECT ISSUE.bookID, ISSUE.memberID, ISSUE.issueTime, ISSUE.renew_count,\n"
                     + "MEMBER.name, MEMBER.mobile, MEMBER.email,\n"
-                    + "BOOK.title, BOOK.author, BOOK.publisher\n"
+                    + "BOOK.title, BOOK.author, BOOK.price\n"
                     + "FROM ISSUE\n"
                     + "LEFT JOIN MEMBER\n"
                     + "ON ISSUE.memberID=MEMBER.ID\n"
@@ -286,7 +286,7 @@ public class MainController implements Initializable, BookReturnCallback {
 
                 bookNameHolder.setText(rs.getString("title"));
                 bookAuthorHolder.setText(rs.getString("author"));
-                bookPublisherHolder.setText(rs.getString("publisher"));
+                bookPriceHolder.setText(rs.getString("price"));
 
                 Timestamp mIssueTime = rs.getTimestamp("issueTime");
                 Date dateOfIssue = new Date(mIssueTime.getTime());
@@ -468,7 +468,7 @@ public class MainController implements Initializable, BookReturnCallback {
 
         bookNameHolder.setText("");
         bookAuthorHolder.setText("");
-        bookPublisherHolder.setText("");
+        bookPriceHolder.setText("");
 
         issueDateHolder.setText("");
         numberDaysHolder.setText("");

@@ -3,7 +3,7 @@
 <?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.layout.*?>
-<StackPane fx:id="rootPane" stylesheets="@../../../../resources/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="library.assistant.ui.addbook.BookAddController">
+<StackPane fx:id="rootPane" stylesheets="@../../../../resources/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="library.assistant.ui.addbook.BookAddController">
    <children>
       <AnchorPane id="AnchorPane" fx:id="mainContainer" prefHeight="338.0" prefWidth="464.0" styleClass="custom-pane" stylesheets="@../../../../resources/dark-theme.css">
          <children>
@@ -24,7 +24,7 @@
                         <Insets left="10.0" right="10.0" top="20.0" />
                      </VBox.margin>
                   </JFXTextField>
-                  <JFXTextField fx:id="publisher" labelFloat="true" layoutX="10.0" layoutY="62.0" promptText="Publisher">
+                  <JFXTextField fx:id="price" labelFloat="true" layoutX="10.0" layoutY="62.0" promptText="Price">
                      <VBox.margin>
                         <Insets left="10.0" right="10.0" top="20.0" />
                      </VBox.margin>

@@ -50,7 +50,7 @@ public class BookListController implements Initializable {
     @FXML
     private TableColumn<Book, String> authorCol;
     @FXML
-    private TableColumn<Book, String> publisherCol;
+    private TableColumn<Book, String> priceCol;
     @FXML
     private TableColumn<Book, Boolean> availabilityCol;
     @FXML
@@ -70,7 +70,7 @@ public class BookListController implements Initializable {
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
-        publisherCol.setCellValueFactory(new PropertyValueFactory<>("publisher"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         availabilityCol.setCellValueFactory(new PropertyValueFactory<>("availabilty"));
     }
 
@@ -85,10 +85,10 @@ public class BookListController implements Initializable {
                 String titlex = rs.getString("title");
                 String author = rs.getString("author");
                 String id = rs.getString("id");
-                String publisher = rs.getString("publisher");
+                String price = rs.getString("price");
                 Boolean avail = rs.getBoolean("isAvail");
 
-                list.add(new Book(titlex, id, author, publisher, avail));
+                list.add(new Book(titlex, id, author, price, avail));
 
             }
         } catch (SQLException ex) {
@@ -115,10 +115,10 @@ public class BookListController implements Initializable {
                     String titlex = rs.getString("title");
                     String author = rs.getString("author");
                     String id = rs.getString("id");
-                    String publisher = rs.getString("publisher");
+                    String price = rs.getString("price");
                     Boolean avail = rs.getBoolean("isAvail");
 
-                    list.add(new Book(titlex, id, author, publisher, avail));
+                    list.add(new Book(titlex, id, author, price, avail));
 
                 }
             } catch (SQLException ex) {
@@ -197,14 +197,14 @@ public class BookListController implements Initializable {
     @FXML
     private void exportAsPDF(ActionEvent event) {
         List<List> printData = new ArrayList<>();
-        String[] headers = {"   Title   ", "ID", "  Author  ", "  Publisher ", "Avail"};
+        String[] headers = {"   Title   ", "ID", "  Author  ", "  Price ", "Avail"};
         printData.add(Arrays.asList(headers));
         for (Book book : list) {
             List<String> row = new ArrayList<>();
             row.add(book.getTitle());
             row.add(book.getId());
             row.add(book.getAuthor());
-            row.add(book.getPublisher());
+            row.add(book.getPrice());
             row.add(book.getAvailabilty());
             printData.add(row);
         }
@@ -221,14 +221,14 @@ public class BookListController implements Initializable {
         private final SimpleStringProperty title;
         private final SimpleStringProperty id;
         private final SimpleStringProperty author;
-        private final SimpleStringProperty publisher;
+        private final SimpleStringProperty price;
         private final SimpleStringProperty availabilty;
 
-        public Book(String title, String id, String author, String pub, Boolean avail) {
+        public Book(String title, String id, String author, String price, Boolean avail) {
             this.title = new SimpleStringProperty(title);
             this.id = new SimpleStringProperty(id);
             this.author = new SimpleStringProperty(author);
-            this.publisher = new SimpleStringProperty(pub);
+            this.price = new SimpleStringProperty(price);
             if (avail) {
                 this.availabilty = new SimpleStringProperty("Available");
             } else {
@@ -248,8 +248,8 @@ public class BookListController implements Initializable {
             return author.get();
         }
 
-        public String getPublisher() {
-            return publisher.get();
+        public String getPrice() {
+            return price.get();
         }
 
         public String getAvailabilty() {
