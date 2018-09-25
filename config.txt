@@ -1,1 +1,1 @@
-{"nDaysWithoutFine":1,"finePerDay":2.0,"username":"admin","password":"d033e22ae348aeb5660fc2140aec35850c4da997"}
+{"nDaysWithoutFine":14,"finePerDay":2.0,"username":"admin","password":"d033e22ae348aeb5660fc2140aec35850c4da997","dburl":"jdbc:mysql://127.0.0.1:3306/librarydb","dbuser":"root","dbpass":"toor"}

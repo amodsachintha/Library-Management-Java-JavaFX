@@ -16,12 +16,18 @@ public class Preferences {
     float finePerDay;
     String username;
     String password;
+    String dburl;
+    String dbuser;
+    String dbpass;
 
     public Preferences() {
         nDaysWithoutFine = 14;
         finePerDay = 2;
         username = "admin";
         setPassword("admin");
+        dburl = "jdbc:mysql://192.168.1.50:3306/librarydb";
+        dbuser = "root";
+        dbpass = "toor";
     }
 
     public int getnDaysWithoutFine() {
@@ -54,6 +60,30 @@ public class Preferences {
 
     public void setPassword(String password) {
         this.password = DigestUtils.sha1Hex(password);
+    }
+
+    public String getDburl() {
+        return dburl;
+    }
+
+    public void setDburl(String dburl) {
+        this.dburl = dburl;
+    }
+
+    public String getDbuser() {
+        return dbuser;
+    }
+
+    public void setDbuser(String dbuser) {
+        this.dbuser = dbuser;
+    }
+
+    public String getDbpass() {
+        return dbpass;
+    }
+
+    public void setDbpass(String dbpass) {
+        this.dbpass = dbpass;
     }
 
     public static void initConfig() {
