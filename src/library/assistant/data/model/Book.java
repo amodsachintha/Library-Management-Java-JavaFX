@@ -1,20 +1,21 @@
 package library.assistant.data.model;
 
 /**
- *
  * @author amodsachintha
  */
 public class Book {
     String id;
     String title;
     String author;
+    String cat;
     String price;
     Boolean isAvail;
 
-    public Book(String id, String title, String author, String price, Boolean isAvail) {
+    public Book(String id, String title, String author, String cat, String price, Boolean isAvail) {
         this.id = id;
         this.title = title;
         this.author = author;
+        this.cat = cat;
         this.price = price;
         this.isAvail = isAvail;
     }
@@ -58,6 +59,12 @@ public class Book {
     public void setIsAvail(Boolean isAvail) {
         this.isAvail = isAvail;
     }
-    
-    
+
+    public String getCat() {
+        return cat;
+    }
+
+    public void setCat(String cat) {
+        this.cat = cat;
+    }
 }

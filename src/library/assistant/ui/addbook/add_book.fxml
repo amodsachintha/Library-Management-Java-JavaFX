@@ -3,7 +3,7 @@
 <?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.layout.*?>
-<StackPane fx:id="rootPane" stylesheets="@../../../../resources/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="library.assistant.ui.addbook.BookAddController">
+<StackPane fx:id="rootPane" prefHeight="434.0" prefWidth="464.0" stylesheets="@../../../../resources/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="library.assistant.ui.addbook.BookAddController">
    <children>
       <AnchorPane id="AnchorPane" fx:id="mainContainer" prefHeight="338.0" prefWidth="464.0" styleClass="custom-pane" stylesheets="@../../../../resources/dark-theme.css">
          <children>
@@ -20,6 +20,11 @@
                      </VBox.margin>
                   </JFXTextField>
                   <JFXTextField fx:id="author" labelFloat="true" layoutX="20.0" layoutY="30.0" promptText="Book Author">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="20.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextField fx:id="catField" labelFloat="true" layoutX="35.0" layoutY="179.0" prefHeight="37.0" prefWidth="445.0" promptText="Book Category">
                      <VBox.margin>
                         <Insets left="10.0" right="10.0" top="20.0" />
                      </VBox.margin>

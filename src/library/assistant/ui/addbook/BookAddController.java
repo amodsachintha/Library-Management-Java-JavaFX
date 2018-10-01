@@ -31,6 +31,8 @@ public class BookAddController implements Initializable {
     @FXML
     private JFXTextField author;
     @FXML
+    private JFXTextField catField;
+    @FXML
     private JFXTextField price; //price
     @FXML
     private JFXButton saveButton;
@@ -54,9 +56,10 @@ public class BookAddController implements Initializable {
         String bookID = id.getText();
         String bookAuthor = author.getText();
         String bookName = title.getText();
+        String bookCat = catField.getText();
         String bookPrice = price.getText();
 
-        if (bookID.isEmpty() || bookAuthor.isEmpty() || bookName.isEmpty() || bookPrice.isEmpty()) {
+        if (bookID.isEmpty() || bookAuthor.isEmpty() || bookName.isEmpty() || bookPrice.isEmpty() || bookCat.isEmpty()) {
             AlertMaker.showMaterialDialog(rootPane, mainContainer, new ArrayList<>(), "Insufficient Data", "Please enter data in all fields.");
             return;
         }
@@ -71,7 +74,7 @@ public class BookAddController implements Initializable {
             return;
         }
 
-        Book book = new Book(bookID, bookName, bookAuthor, bookPrice, Boolean.TRUE);
+        Book book = new Book(bookID, bookName, bookAuthor, bookCat, bookPrice, Boolean.TRUE);
         boolean result = DataHelper.insertNewBook(book);
         if (result) {
             AlertMaker.showMaterialDialog(rootPane, mainContainer, new ArrayList<>(), "New book added", bookName + " has been added");
@@ -104,6 +107,7 @@ public class BookAddController implements Initializable {
         title.setText(book.getTitle());
         id.setText(book.getId());
         author.setText(book.getAuthor());
+        catField.setText(book.getCat());
         price.setText(book.getPrice());
         id.setEditable(false);
         isInEditMode = Boolean.TRUE;
@@ -117,7 +121,7 @@ public class BookAddController implements Initializable {
     }
 
     private void handleEditOperation() {
-        BookListController.Book book = new BookListController.Book(title.getText(), id.getText(), author.getText(), price.getText(), true);
+        BookListController.Book book = new BookListController.Book(title.getText(), id.getText(), author.getText(), catField.getText(), price.getText(), true);
         if (databaseHandler.updateBook(book)) {
             AlertMaker.showMaterialDialog(rootPane, mainContainer, new ArrayList<>(), "Success", "Update complete");
         } else {

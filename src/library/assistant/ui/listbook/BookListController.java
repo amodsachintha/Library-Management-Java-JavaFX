@@ -50,6 +50,8 @@ public class BookListController implements Initializable {
     @FXML
     private TableColumn<Book, String> authorCol;
     @FXML
+    private TableColumn<Book, String> catCol;
+    @FXML
     private TableColumn<Book, String> priceCol;
     @FXML
     private TableColumn<Book, Boolean> availabilityCol;
@@ -70,6 +72,7 @@ public class BookListController implements Initializable {
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
+        catCol.setCellValueFactory(new PropertyValueFactory<>("cat"));
         priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         availabilityCol.setCellValueFactory(new PropertyValueFactory<>("availabilty"));
     }
@@ -84,11 +87,12 @@ public class BookListController implements Initializable {
             while (rs.next()) {
                 String titlex = rs.getString("title");
                 String author = rs.getString("author");
+                String cat = rs.getString("cat");
                 String id = rs.getString("id");
                 String price = rs.getString("price");
                 Boolean avail = rs.getBoolean("isAvail");
 
-                list.add(new Book(titlex, id, author, price, avail));
+                list.add(new Book(titlex, id, author, cat, price, avail));
 
             }
         } catch (SQLException ex) {
@@ -115,10 +119,11 @@ public class BookListController implements Initializable {
                     String titlex = rs.getString("title");
                     String author = rs.getString("author");
                     String id = rs.getString("id");
+                    String cat = rs.getString("cat");
                     String price = rs.getString("price");
                     Boolean avail = rs.getBoolean("isAvail");
 
-                    list.add(new Book(titlex, id, author, price, avail));
+                    list.add(new Book(titlex, id, author, cat, price, avail));
 
                 }
             } catch (SQLException ex) {
@@ -197,13 +202,14 @@ public class BookListController implements Initializable {
     @FXML
     private void exportAsPDF(ActionEvent event) {
         List<List> printData = new ArrayList<>();
-        String[] headers = {"   Title   ", "ID", "  Author  ", "  Price ", "Avail"};
+        String[] headers = {"   Title   ", "ID", "  Author  ", "  Category  ", "  Price ", "Avail"};
         printData.add(Arrays.asList(headers));
         for (Book book : list) {
             List<String> row = new ArrayList<>();
             row.add(book.getTitle());
             row.add(book.getId());
             row.add(book.getAuthor());
+            row.add(book.getCat());
             row.add(book.getPrice());
             row.add(book.getAvailabilty());
             printData.add(row);
@@ -221,13 +227,15 @@ public class BookListController implements Initializable {
         private final SimpleStringProperty title;
         private final SimpleStringProperty id;
         private final SimpleStringProperty author;
+        private final SimpleStringProperty cat;
         private final SimpleStringProperty price;
         private final SimpleStringProperty availabilty;
 
-        public Book(String title, String id, String author, String price, Boolean avail) {
+        public Book(String title, String id, String author, String cat, String price, Boolean avail) {
             this.title = new SimpleStringProperty(title);
             this.id = new SimpleStringProperty(id);
             this.author = new SimpleStringProperty(author);
+            this.cat = new SimpleStringProperty(cat);
             this.price = new SimpleStringProperty(price);
             if (avail) {
                 this.availabilty = new SimpleStringProperty("Available");
@@ -246,6 +254,10 @@ public class BookListController implements Initializable {
 
         public String getAuthor() {
             return author.get();
+        }
+
+        public String  getCat(){
+            return cat.get();
         }
 
         public String getPrice() {
