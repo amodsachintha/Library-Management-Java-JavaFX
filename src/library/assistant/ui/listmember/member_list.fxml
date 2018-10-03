@@ -3,8 +3,16 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
 <StackPane fx:id="rootPane" prefHeight="527.0" prefWidth="1133.0" stylesheets="@../../../../resources/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="library.assistant.ui.listmember.MemberListController">
    <children>
       <AnchorPane id="AnchorPane" fx:id="contentPane" prefHeight="456.0" prefWidth="722.0" stylesheets="@../../../../resources/dark-theme.css">
@@ -31,8 +39,8 @@
             </HBox>
             <TableView fx:id="tableView" layoutY="59.0" prefHeight="468.0" prefWidth="1028.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
                <columns>
-                  <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />
                   <TableColumn fx:id="idCol" maxWidth="2800.0" prefWidth="60.0" text="Member ID" />
+                  <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />
                   <TableColumn fx:id="mobileCol" prefWidth="75.0" text="Mobile" />
                   <TableColumn fx:id="emailCol" prefWidth="75.0" text="Email" />
                   <TableColumn fx:id="mobileCol2" prefWidth="75.0" text="Mobile2" />

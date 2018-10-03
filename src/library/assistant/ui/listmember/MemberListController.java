@@ -163,17 +163,17 @@ public class MemberListController implements Initializable {
     @FXML
     private void exportAsPDF(ActionEvent event) {
         List<List> printData = new ArrayList<>();
-        String[] headers = {"   Name    ", "ID", "Mobile", "    Email   ","Mobile2","NIC","    Address    "};
+        String[] headers = {"ID","   Name    ", "Mobile", "    Address    ","Mobile2","NIC","    Email    "};
         printData.add(Arrays.asList(headers));
         for (Member member : list) {
             List<String> row = new ArrayList<>();
-            row.add(member.getName());
             row.add(member.getId());
+            row.add(member.getName());
             row.add(member.getMobile());
-            row.add(member.getEmail());
+            row.add(member.getAddress());
             row.add(member.getMobile2());
             row.add(member.getNic());
-            row.add(member.getAddress());
+            row.add(member.getEmail());
             printData.add(row);
         }
         LibraryAssistantUtil.initPDFExprot(rootPane, contentPane, getStage(), printData);

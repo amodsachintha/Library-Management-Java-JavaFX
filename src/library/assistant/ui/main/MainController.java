@@ -28,14 +28,19 @@ import library.assistant.ui.callback.BookReturnCallback;
 import library.assistant.ui.issuedlist.IssuedListController;
 import library.assistant.ui.main.toolbar.ToolbarController;
 import library.assistant.util.LibraryAssistantUtil;
+import sun.rmi.runtime.Log;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -85,6 +90,8 @@ public class MainController implements Initializable, BookReturnCallback {
     private Text memberEmailHolder;
     @FXML
     private Text memberContactHolder;
+    @FXML
+    private Text memberRenewStatus;
     @FXML
     private Text bookNameHolder;
     @FXML
@@ -270,7 +277,7 @@ public class MainController implements Initializable, BookReturnCallback {
         try {
             String id = bookID.getText();
             String myQuery = "SELECT ISSUE.bookID, ISSUE.memberID, ISSUE.issueTime, ISSUE.renew_count,\n"
-                    + "MEMBER.name, MEMBER.mobile, MEMBER.email,\n"
+                    + "MEMBER.name, MEMBER.mobile, MEMBER.renewed_at, MEMBER.email,\n"
                     + "BOOK.title, BOOK.author, BOOK.price\n"
                     + "FROM ISSUE\n"
                     + "LEFT JOIN MEMBER\n"
@@ -280,13 +287,28 @@ public class MainController implements Initializable, BookReturnCallback {
                     + "WHERE ISSUE.bookID='" + id + "'";
             ResultSet rs = databaseHandler.execQuery(myQuery);
             if (rs.next()) {
-                memberNameHolder.setText(rs.getString("name"));
-                memberContactHolder.setText(rs.getString("mobile"));
-                memberEmailHolder.setText(rs.getString("email"));
+                memberNameHolder.setText("Name: " + rs.getString("name"));
+                memberContactHolder.setText("Mobile: " + rs.getString("mobile"));
+                memberEmailHolder.setText("Member ID: " + rs.getString("memberID"));
 
-                bookNameHolder.setText(rs.getString("title"));
-                bookAuthorHolder.setText(rs.getString("author"));
-                bookPriceHolder.setText(rs.getString("price"));
+                String renewed_at = rs.getString("renewed_at");
+                DateFormat format = new SimpleDateFormat("yyyy-M-d",Locale.ENGLISH);
+                Date date = format.parse(renewed_at);
+                Date now = new Date();
+
+                long diffInMillies = now.getTime() - date.getTime();
+                Long days_diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+                System.out.println(days_diff);
+
+                if(days_diff >= 365){
+                    memberRenewStatus.setText("RENEW MEMBER");
+                }else {
+                    memberRenewStatus.setText("");
+                }
+
+                bookNameHolder.setText("Name: " + rs.getString("title"));
+                bookAuthorHolder.setText("Author: " + rs.getString("author"));
+                bookPriceHolder.setText("Price: " + rs.getString("price"));
 
                 Timestamp mIssueTime = rs.getTimestamp("issueTime");
                 Date dateOfIssue = new Date(mIssueTime.getTime());
@@ -564,8 +586,8 @@ public class MainController implements Initializable, BookReturnCallback {
     }
 
     @FXML
-    private void showRenewDialog(){
-        LibraryAssistantUtil.loadWindow(getClass().getResource("/library/assistant/ui/renew/renew_list.fxml"),"Renew Status",null);
+    private void showRenewDialog() {
+        LibraryAssistantUtil.loadWindow(getClass().getResource("/library/assistant/ui/renew/renew_list.fxml"), "Renew Status", null);
     }
 
 }

@@ -202,12 +202,12 @@ public class BookListController implements Initializable {
     @FXML
     private void exportAsPDF(ActionEvent event) {
         List<List> printData = new ArrayList<>();
-        String[] headers = {"   Title   ", "ID", "  Author  ", "  Category  ", "  Price ", "Avail"};
+        String[] headers = {"ID", "   Title   ", "  Author  ", "  Category  ", "  Price ", "Avail"};
         printData.add(Arrays.asList(headers));
         for (Book book : list) {
             List<String> row = new ArrayList<>();
-            row.add(book.getTitle());
             row.add(book.getId());
+            row.add(book.getTitle());
             row.add(book.getAuthor());
             row.add(book.getCat());
             row.add(book.getPrice());
